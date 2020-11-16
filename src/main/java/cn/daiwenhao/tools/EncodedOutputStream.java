@@ -5,6 +5,11 @@ import org.mozilla.universalchardet.UniversalDetector;
 import java.io.IOException;
 import java.io.OutputStream;
 
+/**
+ * 一个特殊的输出流，向此输出流写入数据时，
+ * 会自动检测出字节数组的编码并转换为需要的编码
+ * @author whdai
+ */
 public class EncodedOutputStream extends OutputStream {
 
     private static final String DEFAULT_TARGET_CHARSET = "UTF-8";

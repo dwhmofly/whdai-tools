@@ -3,6 +3,10 @@ package cn.daiwenhao.tools;
 import java.io.IOException;
 import java.io.OutputStream;
 
+/**
+ * 一个特殊的输出流，每调用一次write就会调用一次flush
+ * @author whdai
+ */
 public class FlushOutputStream extends OutputStream {
 
     protected OutputStream out;
