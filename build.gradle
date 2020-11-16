@@ -1,0 +1,15 @@
+plugins {
+    id 'java'
+}
+
+group 'cn.daiwenhao'
+version '1.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.googlecode.juniversalchardet:juniversalchardet:1.0.3'
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
+}
