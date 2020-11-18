@@ -1,9 +1,11 @@
 plugins {
     id 'java'
+    id 'maven-publish'
+    id 'signing'
 }
 
 group 'cn.daiwenhao'
-version '1.0.0'
+version '1.0.1'
 
 repositories {
     mavenCentral()
@@ -12,4 +14,62 @@ repositories {
 dependencies {
     implementation 'com.googlecode.juniversalchardet:juniversalchardet:1.0.3'
     testImplementation group: 'junit', name: 'junit', version: '4.12'
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+javadoc {
+    options {
+        encoding "UTF-8"
+        charSet 'UTF-8'
+    }
+}
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            pom {
+                name = "whdai-tools"
+                description = "whdai-tools"
+                url = "https://github.com/dwhmofly/whdai-tools.git"
+                licenses {
+                    license {
+                        name = "BSD-3-Clause License"
+                        url = "https://github.com/dwhmofly/whdai-tools/blob/master/LICENSE"
+                    }
+                }
+                developers {
+                    developer {
+                        id = "whdai"
+                        name = "whdai"
+                        email = "dwh@daiwenhao.cn"
+                    }
+                }
+                scm {
+                    connection = "scm:git:https://github.com/dwhmofly/whdai-tools.git"
+                    developerConnection = "scm:git:https://github.com/dwhmofly/whdai-tools.git"
+                    url = "https://github.com/dwhmofly/whdai-tools.git"
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            def releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+            def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots"
+            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+            credentials {
+                username System.getenv("PublishUser")
+                password System.getenv("PublishPass")
+            }
+        }
+
+    }
+}
+
+signing {
+    sign publishing.publications.mavenJava
 }
